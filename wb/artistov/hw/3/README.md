@@ -258,3 +258,29 @@ tuples: 1 removed, 1 remain, 0 are dead but not yet removable   <<<--------
 Написать анонимную процедуру, в которой в цикле 10 раз обновятся все строчки в
 искомой таблице.
 Не забыть вывести номер шага цикла.
+
+ЕСли я правильно понял, что подразумевается под анонимной процедурой:
+```sql
+
+vacuum_learn=# DO $$
+vacuum_learn$# DECLARE
+vacuum_learn$# step INT;
+vacuum_learn$# BEGIN
+vacuum_learn$# FOR step in 1..10 LOOP
+vacuum_learn$# UPDATE vacuum_test set some_text = some_text || floor(random() * 26 + 65)::text;
+vacuum_learn$# RAISE NOTICE 'Iterator % has ended', step;
+vacuum_learn$# END LOOP;
+vacuum_learn$# RAISE NOTICE 'done';
+vacuum_learn$# END $$;
+NOTICE:  Iterator 1 has ended
+NOTICE:  Iterator 2 has ended
+NOTICE:  Iterator 3 has ended
+NOTICE:  Iterator 4 has ended
+NOTICE:  Iterator 5 has ended
+NOTICE:  Iterator 6 has ended
+NOTICE:  Iterator 7 has ended
+NOTICE:  Iterator 8 has ended
+NOTICE:  Iterator 9 has ended
+NOTICE:  Iterator 10 has ended
+NOTICE:  done
+```
